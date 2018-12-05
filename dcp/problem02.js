@@ -8,10 +8,31 @@ For example, if our input was [1, 2, 3, 4, 5], the expected output would be [120
 
 Follow-up: what if you can't use division?
 
-*/
+// */
+// function productOfAllButI(list) {
+//     return list.map((itemI, i) => 
+//             list.reduce((product, itemJ, j) => product * (i === j? 1 : itemJ), 1));
+// }
+
 function productOfAllButI(list) {
-    return list.map((itemI, i) => 
-            list.reduce((product, itemJ, j) => product * (i === j? 1 : itemJ), 1));
+    const n = list.length;
+    const itemsButI = [{product: 1, item: list[0]}];
+
+    for (let i = 1; i < n; i++) {
+        const previous = itemsButI[i - 1];
+        const item = list[i];
+        const product = previous.product * previous.item;
+        itemsButI.push({ product, item });
+    }
+
+    let remainingSubProduct = 1;
+    for (let i = n-1; i >= 0; i--) {        
+        const current = itemsButI[i];
+        current.product *= remainingSubProduct;
+        remainingSubProduct *= current.item;
+    }
+
+    return itemsButI.map(({product}) => product);
 }
 
 console.log(productOfAllButI([1, 2, 3, 4, 5]));
