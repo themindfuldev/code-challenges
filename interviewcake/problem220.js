@@ -39,7 +39,6 @@ function reverseWords(message) {
     let indexFromLeft = 0;
     let indexFromRight = message.length - 1;
     while (indexFromLeft < indexFromRight) {
-        debugger;
         // Getting left word
         let leftWord = '';
         const startLeftWord = indexFromLeft;
